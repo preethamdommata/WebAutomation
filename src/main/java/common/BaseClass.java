@@ -1,19 +1,21 @@
 package common;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.util.List;
+
 public class BaseClass {
 
     public WebDriver driver;
 
-    public WebElement waitForPresence(String locator){
-        WebElement element = (new WebDriverWait(driver, 30))
-                .until(ExpectedConditions.presenceOfElementLocated(By.cssSelector(locator)));
-        return element;
+    public void waitForPresenceOfElements(String locator){
+        WebDriverWait wait = new WebDriverWait(driver, 30);
+        wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.cssSelector(locator)));
     }
 
     public WebElement waitForDisplay(String locator){
@@ -45,4 +47,8 @@ public class BaseClass {
         wait.until(ExpectedConditions.invisibilityOfElementLocated(By.cssSelector(locator)));
     }
 
+    public void waitForAllElementsToBeVisible(List<WebElement> webElements){
+        WebDriverWait wait = new WebDriverWait(driver, 30);
+        wait.until(ExpectedConditions.visibilityOfAllElements(webElements));
+    }
 }

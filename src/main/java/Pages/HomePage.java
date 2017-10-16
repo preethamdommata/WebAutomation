@@ -13,13 +13,9 @@ public class HomePage extends BaseClass{
     String fromField = "#hp-widget__sfrom";
     String toField = "#hp-widget__sTo";
     String fromMenu = ".ui-widget-content.hp-widget__sfrom";
-    String hyderLoca = "[aria-label = 'Top Cities : Hyderabad, India ']";
-    String bangLoca = "[aria-label = 'Top Cities : Hyderabad, India ']";
     String toMenu = ".ui-widget-content.hp-widget__sTo";
     String departDate = ".dateFilter .ui-datepicker-group-first";
     String departPickerMonth = ".dateFilter .ui-datepicker-group-first .ui-datepicker-month";
-    String departPickerYear = ".dateFilter .ui-datepicker-group-first .ui-datepicker-year";
-    String departPickerDate = ".dateFilter .ui-datepicker-group-first .ui-datepicker-calendar";
     String firstTableDates = ".dateFilter .ui-datepicker-group-first .ui-datepicker-calendar a.ui-state-default";
     String nextButton = ".dateFilter .ui-datepicker-next.ui-corner-all";
     String passengerField = "#hp-widget__paxCounter";
@@ -29,6 +25,8 @@ public class HomePage extends BaseClass{
     String infantCounterLoc = "#js-infant_counter>li";
     String pasClose = ".close_pax";
     String searchButton = "#searchBtn";
+    String fromDayLocator = ".hp-widget__sfrom .ui-menu-item";
+    String toDayLocator = ".hp-widget__sTo .ui-menu-item";
 
     /**
      * Constructor to handle the driver
@@ -40,15 +38,16 @@ public class HomePage extends BaseClass{
 
     /**
      * Enters the From and To place details
-     * @throws InterruptedException
+     * @param fromLocation - From Location name
+     * @throws InterruptedException - To location Name
      */
-    public void enterFromToDetails() throws InterruptedException {
+    public void enterFromToDetails(String fromLocation, String toLocation) throws InterruptedException {
         WebElement fromFieldE = waitForDisplay(fromField);
         fromFieldE.click();
         waitForDisplay(fromMenu);
-        selectFromLocation("Hyderabad");
+        selectFromLocation(fromLocation);
         waitForDisplay(toMenu);
-        selectToLocation("Bangalore");
+        selectToLocation(toLocation);
     }
 
     /**
@@ -57,9 +56,8 @@ public class HomePage extends BaseClass{
      */
     public void selectFromLocation(String locationName){
         waitForDisplay(fromMenu);
-        List<WebElement> fromElements = driver.findElements(By.cssSelector(".hp-widget__sfrom .ui-menu-item"));
+        List<WebElement> fromElements = driver.findElements(By.cssSelector(fromDayLocator));
         for(WebElement element:fromElements){
-            System.out.println(element.getText());
             if(element.getText().contains(locationName)){
                 element.findElement(By.cssSelector("span")).click();
                 break;
@@ -73,9 +71,8 @@ public class HomePage extends BaseClass{
      */
     public void selectToLocation(String locationName){
         waitForDisplay(toMenu);
-        List<WebElement> fromElements = driver.findElements(By.cssSelector(".hp-widget__sTo .ui-menu-item"));
+        List<WebElement> fromElements = driver.findElements(By.cssSelector(toDayLocator));
         for(WebElement element:fromElements){
-            System.out.println(element.getText());
             if(element.getText().contains(locationName)){
                 element.findElement(By.cssSelector("span")).click();
                 break;
@@ -92,7 +89,6 @@ public class HomePage extends BaseClass{
         waitForDisplay(departDate);
         selectMonth(month);
         selectDay(day);
-
     }
 
     /**
@@ -106,7 +102,6 @@ public class HomePage extends BaseClass{
             WebElement monthElement = driver.findElement(By.cssSelector(departPickerMonth));
             WebElement nextElement = driver.findElement(By.cssSelector(nextButton));
         if(monthElement.getText().equals(month)){
-            System.out.println(monthElement.getText());
             break;
         }else{
                 nextElement.click();

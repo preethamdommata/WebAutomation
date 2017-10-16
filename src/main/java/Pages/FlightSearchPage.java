@@ -5,10 +5,14 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
+import java.util.function.Predicate;
 
 public class FlightSearchPage extends BaseClass{
 
@@ -29,8 +33,9 @@ public class FlightSearchPage extends BaseClass{
      */
     public FlightSearchPage(WebDriver driver){
         this.driver = driver;
-        waitForElementNotVisible(pageLoaderMover);
+//        waitForElementNotVisible(pageLoaderMover);
 
+        driver.manage().timeouts().pageLoadTimeout(60, TimeUnit.SECONDS);
     }
 
     /**
@@ -48,17 +53,13 @@ public class FlightSearchPage extends BaseClass{
      * @return Arraylist of searched flight row elements
      * @throws InterruptedException
      */
-    public ArrayList<WebElement> getFlightsBetweenHours() throws InterruptedException {
-        scrollUntilLastElementTimeGreaterThan("11:00");
+    public ArrayList<WebElement> getFlightsBetweenHours(String departurestartTime, String departureEndTime) throws InterruptedException {
+        scrollUntilLastElementTimeGreaterThan(departureEndTime);
         List<WebElement> flightRows = driver.findElements(By.cssSelector(flightDetailRows));
-
         ArrayList<WebElement> flights = new ArrayList<WebElement>();
-
         for(WebElement element: flightRows){
             String departureTimeOfFlight = element.findElement(By.cssSelector(departureTime)).getText();
-            System.out.println(departureTimeOfFlight);
-            if(verifyTimeInBetween("09:00", "10:00", departureTimeOfFlight)){
-                System.out.println("time added: "+departureTimeOfFlight);
+            if(verifyTimeInBetween(departurestartTime, departureEndTime, departureTimeOfFlight)){
                 flights.add(element);
             }
         }
@@ -79,7 +80,6 @@ public class FlightSearchPage extends BaseClass{
         LocalTime start = LocalTime.parse(startTime, format);
         LocalTime end = LocalTime.parse(endTime, format);
         LocalTime targetTime = LocalTime.parse(time, format);
-
 
         if(targetTime.isAfter(start) && targetTime.isBefore(end)){
             defaultResult = true;
@@ -117,8 +117,10 @@ public class FlightSearchPage extends BaseClass{
         for(int i=0;i<10;i++){
             List<WebElement> flightRows = driver.findElements(By.cssSelector(flightDetailRows));
             int rowsSize = flightRows.size();
-            System.out.println("rowSize: "+rowsSize);
+            System.out.println("rowsSize: "+rowsSize);
             WebElement lastElement = flightRows.get(rowsSize-1);
+            waitForPresenceOfElements(flightDetailRows);
+            waitForAllElementsToBeVisible(flightRows);
             WebElement element = waitForElementDisplay(lastElement.findElement(By.cssSelector(departureTime)));
             String departureTimeStamp = element.getText();
             LocalTime lastElementTime = getTimeFromString(departureTimeStamp);
@@ -150,6 +152,7 @@ public class FlightSearchPage extends BaseClass{
             System.out.println("Flight Fare: "+flightFareElement.getText());
             System.out.println("Flight Duation: "+flightDurationElement.getText());
             System.out.println("Departure Time: "+departureTimeElement.getText());
+            System.out.println("\n");
 
         }
 

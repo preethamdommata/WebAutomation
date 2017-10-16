@@ -9,22 +9,28 @@ public class SearchSpec extends BaseSpec{
 
     @Test
     public void firstScript() throws InterruptedException {
+        String departureStartTime = "09:00";
+        String departureEndTime = "10:00";
+        String dayOfBooking = "25";
+        String monthOfBooking = "DECEMBER";
+        String numberOfAdults = "1";
+        String numberOfChildren = "1";
+        String numberOfInfant = "0";
+        String fromLocation = "Hyderabad";
+        String toLocation = "Bangalore";
+
         driver.get("https://www.makemytrip.com");
-        Thread.sleep(5000);
-        homePage.enterFromToDetails();
-        homePage.selectDate("25", "DECEMBER");
-        homePage.selectPassengers("1","1", "0");
+        homePage.enterFromToDetails(fromLocation, toLocation);
+        homePage.selectDate(dayOfBooking, monthOfBooking);
+        homePage.selectPassengers(numberOfAdults,numberOfChildren, numberOfInfant);
         homePage.search();
-        Thread.sleep(5000);
         searchPage.sortByDepartureTime();
-        searchPage.getFlightsBetweenHours();
-        ArrayList<WebElement> flights = searchPage.getFlightsBetweenHours();
+        ArrayList<WebElement> flights = searchPage.getFlightsBetweenHours(departureStartTime, departureEndTime);
         searchPage.printFlightDetails(flights);
-        Thread.sleep(5000);
 
     }
 
-        @AfterClass
+    @AfterClass
     public void clean(){
             driver.quit();
         }

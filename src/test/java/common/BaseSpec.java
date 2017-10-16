@@ -22,6 +22,5 @@ public class BaseSpec {
         homePage = new HomePage(driver);
         searchPage = new FlightSearchPage(driver);
 
-
     }
 }
