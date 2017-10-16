@@ -1,20 +1,17 @@
 package Pages;
 
+import common.BaseClass;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
-
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FlightSearchPage {
+public class FlightSearchPage extends BaseClass{
 
-    private WebDriver driver;
     String departureColumn = "#departure";
     String sorterWaitScreen = ".freeze_screen .sorter";
     String flightDetailRows = ".listing_row";
@@ -23,34 +20,22 @@ public class FlightSearchPage {
     String flightFare = ".price_info>.num";
     String flightDuration = ".duratn>.block.timeCa";
     String departureTime = ".time_info_space>.block.timeCa";
-//    String arrivalTime = "";
-    String pageLoaderMover = "#progressBar .page_loader__mover";
+//    String pageLoaderMover = "#progressBar .page_loader__mover";
+    String pageLoaderMover = "span.page_loader__text:contains(Getting Flights...)";
 
+    /**
+     * constructor to handle the driver
+     * @param driver
+     */
     public FlightSearchPage(WebDriver driver){
         this.driver = driver;
         waitForElementNotVisible(pageLoaderMover);
 
     }
 
-
-    public WebElement waitForClick(String locator){
-        WebElement element = (new WebDriverWait(driver, 30))
-                .until(ExpectedConditions.elementToBeClickable(By.cssSelector(locator)));
-        return element;
-    }
-
-    public WebElement waitForElementClick(WebElement givenElement){
-        WebElement element = (new WebDriverWait(driver, 30))
-                .until(ExpectedConditions.elementToBeClickable(givenElement));
-        return element;
-    }
-
-    public void waitForElementNotVisible(String locator){
-        WebDriverWait wait = new WebDriverWait(driver, 30);
-        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.cssSelector(locator)));
-    }
-
-
+    /**
+     * Clicks on the Departure Column header for sorting
+     */
     public void sortByDepartureTime(){
         WebElement departureColumnElement = waitForClick(departureColumn);
         departureColumnElement.click();
@@ -58,6 +43,11 @@ public class FlightSearchPage {
 
     }
 
+    /**
+     * Gets the flights that are in between the specified Departure timings
+     * @return Arraylist of searched flight row elements
+     * @throws InterruptedException
+     */
     public ArrayList<WebElement> getFlightsBetweenHours() throws InterruptedException {
         scrollUntilLastElementTimeGreaterThan("11:00");
         List<WebElement> flightRows = driver.findElements(By.cssSelector(flightDetailRows));
@@ -76,6 +66,13 @@ public class FlightSearchPage {
 
     }
 
+    /**
+     * Verifies if the given time is in between the given start and end times
+     * @param startTime - Start time to check if the given time is in between
+     * @param endTime - end time to check if the given time is in between
+     * @param time - Given time - to verify if this falls in between start and end time
+     * @return boolean value (true or false)
+     */
     public boolean verifyTimeInBetween(String startTime, String endTime, String time){
         DateTimeFormatter format = DateTimeFormatter.ofPattern("HH:mm");
         boolean defaultResult = false;
@@ -90,26 +87,39 @@ public class FlightSearchPage {
         return defaultResult;
     }
 
+    /**
+     * Converts the string to time
+     * @param departureTime - time given in string
+     * @return - returns time in LocalTime format
+     */
     public LocalTime getTimeFromString(String departureTime){
         DateTimeFormatter format = DateTimeFormatter.ofPattern("HH:mm");
         LocalTime departureTimeFinal = LocalTime.parse(departureTime, format);
         return departureTimeFinal;
     }
 
+    /**
+     * Scrolls the page to the given element
+     * @param element - WedElement where the page should be scrolled to.
+     */
     public void scrollToElement(WebElement element){
         ((JavascriptExecutor)driver).executeScript("arguments[0].scrollIntoView();", element);
     }
 
-
+    /**
+     * Scrolls the page until the departure time of the last element becomes more than the end departure time given
+     * @param time - Departure time
+     * @throws InterruptedException
+     */
     public void scrollUntilLastElementTimeGreaterThan(String time) throws InterruptedException {
         LocalTime givenTime = getTimeFromString(time);
 
         for(int i=0;i<10;i++){
             List<WebElement> flightRows = driver.findElements(By.cssSelector(flightDetailRows));
             int rowsSize = flightRows.size();
-            System.out.println("rowSie: "+rowsSize);
+            System.out.println("rowSize: "+rowsSize);
             WebElement lastElement = flightRows.get(rowsSize-1);
-            WebElement element = waitForElementClick(lastElement.findElement(By.cssSelector(departureTime)));
+            WebElement element = waitForElementDisplay(lastElement.findElement(By.cssSelector(departureTime)));
             String departureTimeStamp = element.getText();
             LocalTime lastElementTime = getTimeFromString(departureTimeStamp);
 
@@ -123,8 +133,11 @@ public class FlightSearchPage {
 
     }
 
+    /**
+     * Prints the flight details like Ariline Name, Flight Number, Fare, Flight Duration, Departure time of the Flight
+     * @param flightDetailsRows - Arraylist of the searched results flight row elements
+     */
     public void printFlightDetails(ArrayList<WebElement> flightDetailsRows){
-        int flightsNumber = flightDetailsRows.size();
         for(WebElement element:flightDetailsRows){
             WebElement airlineNameElement = element.findElement(By.cssSelector(airlineName));
             WebElement flightNumberElement = element.findElement(By.cssSelector(flightNumber));

@@ -1,17 +1,14 @@
 package Pages;
 
+import common.BaseClass;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
-
-import java.util.ArrayList;
 import java.util.List;
 
-public class HomePage {
+public class HomePage extends BaseClass{
 
-    public WebDriver driver;
+//    public WebDriver driver;
 
     String fromField = "#hp-widget__sfrom";
     String toField = "#hp-widget__sTo";
@@ -19,67 +16,6 @@ public class HomePage {
     String hyderLoca = "[aria-label = 'Top Cities : Hyderabad, India ']";
     String bangLoca = "[aria-label = 'Top Cities : Hyderabad, India ']";
     String toMenu = ".ui-widget-content.hp-widget__sTo";
-
-    public WebElement waitForPresence(String locator){
-        WebElement element = (new WebDriverWait(driver, 30))
-                .until(ExpectedConditions.presenceOfElementLocated(By.cssSelector(locator)));
-        return element;
-    }
-
-    public WebElement waitForDisplay(String locator){
-        WebElement element = (new WebDriverWait(driver, 30))
-                .until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(locator)));
-        return element;
-    }
-
-    public WebElement waitForClick(String locator){
-        WebElement element = (new WebDriverWait(driver, 30))
-                .until(ExpectedConditions.elementToBeClickable(By.cssSelector(locator)));
-        return element;
-    }
-
-    public HomePage(WebDriver driver){
-        this.driver = driver;
-    }
-
-    public void enterFromToDetails() throws InterruptedException {
-        WebElement fromFieldE = waitForDisplay(fromField);
-        fromFieldE.click();
-        waitForDisplay(fromMenu);
-        selectFromLocation("Hyderabad");
-        waitForDisplay(toMenu);
-        selectToLocation("Bangalore");
-    }
-
-
-    public void selectFromLocation(String locationName){
-        waitForDisplay(fromMenu);
-        List<WebElement> fromElements = new ArrayList<WebElement>();
-        fromElements = driver.findElements(By.cssSelector(".hp-widget__sfrom .ui-menu-item"));
-        for(WebElement element:fromElements){
-            System.out.println(element.getText());
-            if(element.getText().contains(locationName)){
-                element.findElement(By.cssSelector("span")).click();
-                break;
-            }
-
-        }
-
-    }
-
-    public void selectToLocation(String locationName){
-        waitForDisplay(toMenu);
-        List<WebElement> fromElements = new ArrayList<WebElement>();
-        fromElements = driver.findElements(By.cssSelector(".hp-widget__sTo .ui-menu-item"));
-        for(WebElement element:fromElements){
-            System.out.println(element.getText());
-            if(element.getText().contains(locationName)){
-                element.findElement(By.cssSelector("span")).click();
-                break;
-            }
-        }
-    }
-
     String departDate = ".dateFilter .ui-datepicker-group-first";
     String departPickerMonth = ".dateFilter .ui-datepicker-group-first .ui-datepicker-month";
     String departPickerYear = ".dateFilter .ui-datepicker-group-first .ui-datepicker-year";
@@ -94,15 +30,75 @@ public class HomePage {
     String pasClose = ".close_pax";
     String searchButton = "#searchBtn";
 
+    /**
+     * Constructor to handle the driver
+     * @param driver
+     */
+    public HomePage(WebDriver driver){
+        this.driver = driver;
+    }
 
-    public void selectDate(String day, String month, String year){
+    /**
+     * Enters the From and To place details
+     * @throws InterruptedException
+     */
+    public void enterFromToDetails() throws InterruptedException {
+        WebElement fromFieldE = waitForDisplay(fromField);
+        fromFieldE.click();
+        waitForDisplay(fromMenu);
+        selectFromLocation("Hyderabad");
+        waitForDisplay(toMenu);
+        selectToLocation("Bangalore");
+    }
+
+    /**
+     * Selects from location from the Location dropdown provided
+     * @param locationName - Name of the From location
+     */
+    public void selectFromLocation(String locationName){
+        waitForDisplay(fromMenu);
+        List<WebElement> fromElements = driver.findElements(By.cssSelector(".hp-widget__sfrom .ui-menu-item"));
+        for(WebElement element:fromElements){
+            System.out.println(element.getText());
+            if(element.getText().contains(locationName)){
+                element.findElement(By.cssSelector("span")).click();
+                break;
+            }
+        }
+    }
+
+    /**
+     * Selects TO location from the Location dropdown provided
+     * @param locationName - Name of the To location
+     */
+    public void selectToLocation(String locationName){
+        waitForDisplay(toMenu);
+        List<WebElement> fromElements = driver.findElements(By.cssSelector(".hp-widget__sTo .ui-menu-item"));
+        for(WebElement element:fromElements){
+            System.out.println(element.getText());
+            if(element.getText().contains(locationName)){
+                element.findElement(By.cssSelector("span")).click();
+                break;
+            }
+        }
+    }
+
+    /**
+     * Selects the Date and Month from the Calender
+     * @param day - Date details of a particular month
+     * @param month - Details of the Month
+     */
+    public void selectDate(String day, String month){
         waitForDisplay(departDate);
         selectMonth(month);
         selectDay(day);
 
     }
 
-
+    /**
+     * Selects the Month in calender as per the given Month details
+     * @param month - Given Month name
+     */
     public void selectMonth(String month){
 
         waitForDisplay(departDate);
@@ -118,11 +114,13 @@ public class HomePage {
                 }
     }
 
+    /**
+     * Selects the day of a month in calender as per the day details provided
+     * @param day - Day of a Month (Date)
+     */
     public void selectDay(String day){
         waitForDisplay(departDate);
-//        List<WebElement> dayElements = new ArrayList<WebElement>();
         List<WebElement> dayElements = driver.findElements(By.cssSelector(firstTableDates));
-//        dayElements = driver.findElements(By.cssSelector(firstTableDates));
         for(WebElement element: dayElements){
             if(element.getText().contentEquals(day)){
                 element.click();
@@ -131,10 +129,12 @@ public class HomePage {
         }
     }
 
-
-
-
-
+    /**
+     * Selects the number of passengers (considering Adults, Children and Infants)
+     * @param noAdults - Number of adults
+     * @param noChildren - Number of children
+     * @param noInfant - Number of Infants
+     */
     public void selectPassengers(String noAdults, String noChildren, String noInfant){
         WebElement paxFieldElement = waitForClick(passengerField);
         paxFieldElement.click();
@@ -166,12 +166,14 @@ public class HomePage {
                 }
             }}
 
-
         WebElement closeButton = waitForDisplay(pasClose);
         closeButton.click();
 
     }
 
+    /**
+     * Clicks on the search Button and perfrom the Search operation for the details provided
+     */
     public void search(){
         WebElement searchElement = waitForClick(searchButton);
         searchElement.click();
