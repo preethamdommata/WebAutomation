@@ -2,21 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d5dd30be-77ba-46b0-8bed-ff5a19140361" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/Utils/ExcelUtil.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/Pages/FlightSearchPage.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/Pages/HomePage.class" afterPath="" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/Pages/FlightSearchPage.java" afterPath="$PROJECT_DIR$/src/main/java/com/imaginea/assignment/pages/FlightSearchPage.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/Pages/HomePage.java" afterPath="$PROJECT_DIR$/src/main/java/com/imaginea/assignment/pages/HomePage.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/common/BaseClass.java" afterPath="$PROJECT_DIR$/src/main/java/com/imaginea/assignment/common/BaseClass.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/test/java/Data/SearchSpecData.java" afterPath="$PROJECT_DIR$/src/test/java/com/imaginea/assignment/data/SearchSpecData.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/test/java/common/BaseSpec.java" afterPath="$PROJECT_DIR$/src/test/java/com/imaginea/assignment/common/BaseSpec.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/test/java/specs/SearchSpec.java" afterPath="$PROJECT_DIR$/src/test/java/com/imaginea/assignment/specs/SearchSpec.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/test/java/specs/SearchSpec2.java" afterPath="$PROJECT_DIR$/src/test/java/com/imaginea/assignment/specs/SearchSpec2.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/README.md" afterPath="$PROJECT_DIR$/README.md" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pom.xml" afterPath="$PROJECT_DIR$/pom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/resources/FlightSearch.xml" afterPath="$PROJECT_DIR$/src/test/resources/FlightSearch.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/resources/FlightSearch2.xml" afterPath="$PROJECT_DIR$/src/test/resources/FlightSearch2.xml" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -42,8 +28,8 @@
       <file leaf-file-name="README.md" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/README.md">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="493">
-              <caret line="29" column="0" lean-forward="true" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
+            <state relative-caret-position="336">
+              <caret line="27" column="0" lean-forward="true" selection-start-line="27" selection-start-column="0" selection-end-line="27" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -913,8 +899,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="493">
-          <caret line="29" column="0" lean-forward="true" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
+        <state relative-caret-position="336">
+          <caret line="27" column="0" lean-forward="true" selection-start-line="27" selection-start-column="0" selection-end-line="27" selection-end-column="0" />
           <folding />
         </state>
       </provider>
