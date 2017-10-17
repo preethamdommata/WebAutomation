@@ -30,9 +30,6 @@ public class FlightSearchPage extends BaseClass{
      */
     public FlightSearchPage(WebDriver driver){
         this.driver = driver;
-//        waitForElementNotVisible(pageLoaderMover);
-
-        driver.manage().timeouts().pageLoadTimeout(60, TimeUnit.SECONDS);
     }
 
     /**

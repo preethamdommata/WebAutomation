@@ -8,8 +8,6 @@ import java.util.List;
 
 public class HomePage extends BaseClass{
 
-//    public WebDriver driver;
-
     String fromField = "#hp-widget__sfrom";
     String toField = "#hp-widget__sTo";
     String fromMenu = ".ui-widget-content.hp-widget__sfrom";
