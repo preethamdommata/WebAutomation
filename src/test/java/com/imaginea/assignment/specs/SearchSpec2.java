@@ -1,17 +1,14 @@
-package specs;
+package com.imaginea.assignment.specs;
 
-import common.BaseSpec;
+import com.imaginea.assignment.common.BaseSpec;
 import org.openqa.selenium.WebElement;
-import org.testng.Assert;
-import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
 import java.util.ArrayList;
 
-import static Data.SearchSpecData.*;
+import static com.imaginea.assignment.data.SearchSpecData.*;
 
 public class SearchSpec2 extends BaseSpec{
 

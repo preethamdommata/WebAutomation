@@ -1,4 +1,4 @@
-package Data;
+package com.imaginea.assignment.data;
 
 public class SearchSpecData {
 

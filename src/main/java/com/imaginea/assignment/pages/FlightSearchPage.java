@@ -1,6 +1,6 @@
-package Pages;
+package com.imaginea.assignment.pages;
 
-import common.BaseClass;
+import com.imaginea.assignment.common.BaseClass;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -9,7 +9,6 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 public class FlightSearchPage extends BaseClass{
 
@@ -22,7 +21,7 @@ public class FlightSearchPage extends BaseClass{
     String flightDuration = ".duratn>.block.timeCa";
     String departureTime = ".time_info_space>.block.timeCa";
 //    String pageLoaderMover = "#progressBar .page_loader__mover";
-    String pageLoaderMover = "span.page_loader__text:contains(Getting Flights...)";
+    String pageLoaderMover = "#progressBar.complete";
 
     /**
      * constructor to handle the driver
@@ -36,6 +35,7 @@ public class FlightSearchPage extends BaseClass{
      * Clicks on the Departure Column header for sorting
      */
     public void sortByDepartureTime(){
+        waitForPresenceOfElements(pageLoaderMover);
         WebElement departureColumnElement = waitForClick(departureColumn);
         departureColumnElement.click();
         waitForElementNotVisible(sorterWaitScreen);
@@ -114,7 +114,7 @@ public class FlightSearchPage extends BaseClass{
             System.out.println("rowsSize: "+rowsSize);
             WebElement lastElement = flightRows.get(rowsSize-1);
             waitForPresenceOfElements(flightDetailRows);
-            waitForAllElementsToBeVisible(flightRows);
+//            waitForAllElementsToBeVisible(flightRows);
             WebElement element = waitForElementDisplay(lastElement.findElement(By.cssSelector(departureTime)));
             String departureTimeStamp = element.getText();
             LocalTime lastElementTime = getTimeFromString(departureTimeStamp);

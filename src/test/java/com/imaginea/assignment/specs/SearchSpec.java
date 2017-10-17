@@ -1,6 +1,6 @@
-package specs;
+package com.imaginea.assignment.specs;
 
-import common.BaseSpec;
+import com.imaginea.assignment.common.BaseSpec;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
@@ -40,8 +40,6 @@ public class SearchSpec extends BaseSpec{
         //Sample Hard assert - is not verifying anything
         Assert.assertEquals(true, true);
     }
-
-
 
     @Test(dataProvider = "DepartureDetails")
     public void parameterizationUsingDataProvider(String dStartTime, String dEndTime, String day, String month, String noA, String noC, String noI, String fromLoc, String toLoc) throws InterruptedException {

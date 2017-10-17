@@ -1,4 +1,4 @@
-package common;
+package com.imaginea.assignment.common;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -13,7 +13,7 @@ public class BaseClass {
     public WebDriver driver;
 
     public void waitForPresenceOfElements(String locator){
-        WebDriverWait wait = new WebDriverWait(driver, 30);
+        WebDriverWait wait = new WebDriverWait(driver, 60);
         wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.cssSelector(locator)));
     }
 

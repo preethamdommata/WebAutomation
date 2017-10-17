@@ -2,7 +2,7 @@
 <suite name="Component Tests" verbose="2" annotations="JDK">
     <test name="a-t1" preserve-order="true" >
         <classes>
-            <class name="specs.SearchSpec2" />
+            <class name="com.imaginea.assignment.specs.SearchSpec2" />
         </classes>
     </test>
 </suite>

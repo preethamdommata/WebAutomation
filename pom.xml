@@ -93,7 +93,7 @@
                                 <webdriver.gecko.driver>${webdriver.gecko.driver}</webdriver.gecko.driver>
                             </systemPropertyVariables>
                             <suiteXmlFiles>
-                                <suiteXmlFile>${project.build.directory}/test-class/FlightSearch2.xml</suiteXmlFile>
+                                <suiteXmlFile>${project.build.directory}/test-classes/FlightSearch2.xml</suiteXmlFile>
                             </suiteXmlFiles>
                         </configuration>
                     </plugin>
